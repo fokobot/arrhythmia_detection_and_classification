@@ -13,7 +13,10 @@ module.exports = {
           300: '#412234',
         },
         secondary: '#EAD7D7',
-      }
+      },
+      fontFamily: {
+        body: ['Arvo'],
+      },
     },
   },
   variants: {},
