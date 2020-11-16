@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <body class="text-gray-600 font-body">
+    <body class="text-secondary font-body">
       <main>
         <router-view />
       </main>

@@ -18,9 +18,6 @@ module.exports = {
       fontFamily: {
         body: ['Arvo'],
       },
-      backgroundImage: {
-        'flat-geometric': "linear-gradient(to right, rgba(#B49FCC, 0.8), rgba(#6D466B, 0.8)),  url('../images/flat-geometric-shapes-background.jpg')",
-      }
     },
   },
   variants: {},

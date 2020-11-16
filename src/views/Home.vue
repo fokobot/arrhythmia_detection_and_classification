@@ -214,13 +214,3 @@ export default {
   },
 }
 </script>
-
-<style>
-.bgr {
-  background-image: linear-gradient(
-        to right bottom,
-        rgba(#B49FCC, 0.8),
-        rgba(#6D466B, 0.8)),
-    url(../assets/images/flat-geometric-shapes-background.jpg);
-}
-</style>

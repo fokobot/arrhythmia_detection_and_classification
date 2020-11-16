@@ -2,7 +2,7 @@
   <div class="dashboard">
     <div class="grid md:grid-cols-4">
       <!-- Content wrapper -->
-      <div class="md:col-span-1 md:flex md:justify-end h-screen">
+      <div class="md:col-span-1 md:flex md:justify-end md:h-screen">
         <nav class="text-right">
           <div class="flex justify-between items-center">
             <h1 class="font-bold uppercase p-4 border-b border-gray-100">
@@ -32,12 +32,12 @@
             </div>
           </div>
           <ul :class="'text-sm mt-6 md:block ' + classManager" id="menu">
-            <li class="text-gray-700 font-bold py-1">
+            <li class="text-secondary font-bold py-1">
               <a
-                @click="$router.push('/dashboard')"
-                class="px-4 flex justify-end border-r-4 border-primary cursor-pointer"
+                @click="$router.push('/model')"
+                :class="$route.name === 'Model' ? sidebarSelected : sidebarNoSelected"
               >
-                <span>Home</span>
+                <span>Model</span>
                 <svg
                   class="w-5 ml-2"
                   fill="none"
@@ -57,7 +57,7 @@
             <li class="py-1">
               <a
                 @click="$router.push('/about')"
-                class="px-4 flex justify-end border-r-4 border-white cursor-pointer"
+                :class="$route.name === 'About' ? sidebarSelected : sidebarNoSelected"
               >
                 <span>About</span>
                 <svg
@@ -79,7 +79,7 @@
             <li class="py-1">
               <a
                 @click="$router.push('/contact')"
-                class="px-4 flex justify-end border-r-4 border-white cursor-pointer"
+                :class="$route.name === 'Contact' ? sidebarSelected : sidebarNoSelected"
               >
                 <span>Contact</span>
                 <svg
@@ -121,6 +121,8 @@ export default {
   data: function () {
     return {
       classManager: 'hidden',
+      sidebarSelected: 'px-4 flex justify-end border-r-4 cursor-pointer border-primary-100',
+      sidebarNoSelected: 'px-4 flex justify-end border-r-4 cursor-pointer border-white',
     }
   },
   methods: {
