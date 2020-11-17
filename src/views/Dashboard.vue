@@ -1,6 +1,6 @@
 <template>
   <div class="dashboard">
-    <div class="grid md:grid-cols-4">
+    <div class="grid md:grid-cols-5">
       <!-- Content wrapper -->
       <div class="md:col-span-1 md:flex md:justify-end md:h-screen">
         <nav class="text-right">
@@ -102,7 +102,7 @@
         </nav>
       </div>
       <!-- End Nav -->
-      <main class="px-16 py-6 bg-gray-100 md:col-span-3">
+      <main class="px-16 py-6 bg-gray-100 md:col-span-4">
         <router-view />
       </main>
     </div>
