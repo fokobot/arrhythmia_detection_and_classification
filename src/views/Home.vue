@@ -67,6 +67,11 @@
             class="h-64 object-contain"
             alt="Electrocardiograma de ejemplo"
           />
+          <img
+            src="@/assets/images/table2.png"
+            class="h-64 object-contain"
+            alt="Electrocardiograma de ejemplo"
+          />
         </div>
         <div class="col-span-1 text-left m-12">
           <h2 class="text-secondary text-2xl font-medium">ECG Dataset</h2>
@@ -143,17 +148,10 @@
             alt="Electrocardiograma de ejemplo"
           />
         </div>
-        <div class="col-span-1 text-left m-12">
+        <!-- <div class="col-span-1 text-left m-12">
           <h2 class="text-secondary text-2xl font-medium"></h2>
           <p class="text-secondary text-base font-normal mt-4"></p>
-        </div>
-        <div class="col-span-1 text-center m-4 md:m-12">
-          <img
-            src="@/assets/images/confusion.png"
-            class="object-contain h-52"
-            alt="Electrocardiograma de ejemplo"
-          />
-        </div>
+        </div> -->
         <div class="col-span-1 text-left m-12">
           <h2 class="text-secondary text-2xl font-medium">
             Feature extraction
@@ -171,6 +169,13 @@
             Fig. correlation the correlation matrix for the remaning columns is
             shown.
           </p>
+        </div>
+        <div class="col-span-1 text-center m-4 md:m-12">
+          <img
+            src="@/assets/images/confusion.png"
+            class="object-contain h-52"
+            alt="Electrocardiograma de ejemplo"
+          />
         </div>
       </div>
       <div class="bg-white col-span-1 grid md:grid-cols-2">
