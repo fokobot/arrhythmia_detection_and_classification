@@ -1,19 +1,48 @@
 <template>
   <div class="model">
     <div class="grid md:grid-cols-3">
-      <div class="col-span-2">
-        <Chart title="Señal Original" :signal="signals.original" :showSegments="false" labels class="w-3/4"></Chart>
+      <div class="col-span-3">
+        <select v-model="recordSelected" class="inline-block">
+          <option disabled value="">Seleccione un record</option>
+          <option v-for="record in records" :key="record">{{ record }}</option>
+        </select>
+        <select v-model="segmentSelected" class="inline-block">
+          <option disabled value="">Seleccione un segmento</option>
+          <option v-for="segment in segments" :key="segment">
+            {{ segment }}
+          </option>
+        </select>
+        <div
+          @click="getSignal"
+          class="btn m-4 inline-block rounded-full px-4 py-2 border border-secondary bg-white text-secondary hover:shadow-inner transform hover:scale-110 hover:bg-primary-200 hover:border-primary-100 hover:cursor-pointer transition ease-out duration-300"
+        >
+          Obtener señal
+        </div>
       </div>
-      <div class="flex col-span-1 justify-center items-center">
+      <div v-if="showOriginalSignal" class="col-span-2">
+        <chart
+          title="Señal Original"
+          :signal="signals.original"
+          :showSegments="false"
+          labels
+        ></chart>
+      </div>
+      <div v-if="showOriginalSignal" class="flex col-span-1 justify-center items-center">
         <div
           @click="process"
-          class="btn m-4 inline-block rounded-full px-4 py-2 border border-secondary bg-white text-secondary hover:shadow-inner transform hover:scale-110 hover:bg-primary-200 hover:border-primary-100 transition ease-out duration-300"
+          class="btn m-4 inline-block rounded-full px-4 py-2 border border-secondary bg-white text-secondary hover:shadow-inner transform hover:scale-110 hover:bg-primary-200 hover:border-primary-100 hover:cursor-pointer transition ease-out duration-300"
         >
           Procesar
         </div>
       </div>
-      <div class="col-span-3">
-        <Chart title="Señal Procesada" :signal="signals.preprocessed" :segments="prediction" :showSegments="true" class="w-4/4"></Chart>
+      <div v-if="showPreprocessedSignal" class="col-span-3">
+        <chart
+          title="Señal Procesada"
+          :signal="signals.preprocessed"
+          :segments="prediction"
+          :showSegments="true"
+          class="w-4/4"
+        ></chart>
       </div>
     </div>
   </div>
@@ -21,6 +50,7 @@
 
 <script>
 import Chart from "@/components/Chart.vue";
+import axios from 'axios';
 
 export default {
   name: "Model",
@@ -29,46 +59,35 @@ export default {
   },
   data: function () {
     return {
+      showOriginalSignal: false,
+      showPreprocessedSignal: false,
       classManager: "hidden",
       sidebarSelected:
         "px-4 flex justify-end border-r-4 cursor-pointer border-primary-100",
       sidebarNoSelected:
         "px-4 flex justify-end border-r-4 cursor-pointer border-white",
+      records: [],
+      recordSelected: '',
+      segments: [],
+      segmentSelected: '',
       prediction: {
-        F: [
-          {
-            end_index: 15,
-            peak_index: 14,
-            start_index: 13,
-          },
-        ],
-        N: [
-          {
-            end_index: 12,
-            peak_index: 10,
-            start_index: 9,
-          },
-        ],
-        S: [
-          {
-            end_index: 7,
-            peak_index: 5,
-            start_index: 4,
-          },
-        ],
-        V: [
-          {
-            end_index: 3,
-            peak_index: 2,
-            start_index: 1,
-          },
-        ],
+        F: [],
+        N: [],
+        S: [],
+        V: [],
       },
       signals: {
-        original: ["4", "5", "9", "12", "14", "25", "16", "7", "18", "19", "10", "13", "2", "18", "15", "20"],
-        preprocessed: ["4", "5", "9", "12", "14", "25", "16", "7", "18", "19", "10", "13", "2", "18", "15", "20"],
+        original: [],
+        preprocessed: [],
       },
     };
+  },
+  created() {
+    const vm = this
+    vm.segments = Array.from({ length: 40 }, (_, i) => i + 1);
+    axios.get('http://api.ecgmodel.com/records')
+      .then(res => vm.records = res.data.records)
+      .catch(err => console.log(err));
   },
   methods: {
     addClass() {
@@ -78,8 +97,30 @@ export default {
         this.classManager = "";
       }
     },
+    getSignal() {
+      const vm = this
+      axios.post('http://api.ecgmodel.com/getSignal', {
+        "record": parseInt(vm.recordSelected),
+        "no_segment": parseInt(vm.segmentSelected),
+      })
+        .then(res => {
+          vm.showOriginalSignal = true
+          vm.signals.original = res.data.signal
+          })
+        .catch(err => console.log(err))
+    },
     process() {
-
+      const vm = this
+      axios.post('http://api.ecgmodel.com/predict', {
+        "record": parseInt(vm.recordSelected),
+        "no_segment": parseInt(vm.segmentSelected),
+      })
+        .then(res => {
+          vm.showPreprocessedSignal = true
+          vm.prediction = res.data.prediction
+          vm.signals.preprocessed = res.data.preprocessed_signal
+          })
+        .catch(err => console.log(err))
     },
   },
 };
