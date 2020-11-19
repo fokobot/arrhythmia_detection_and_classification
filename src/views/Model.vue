@@ -12,12 +12,12 @@
             {{ segment }}
           </option>
         </select>
-        <div
+        <a
           @click="getSignal"
           class="btn m-4 inline-block rounded-full px-4 py-2 border border-secondary bg-white text-secondary hover:shadow-inner transform hover:scale-110 hover:bg-primary-200 hover:border-primary-100 hover:cursor-pointer transition ease-out duration-300"
         >
           Obtener señal
-        </div>
+        </a>
       </div>
       <div v-if="showOriginalSignal" class="col-span-2">
         <chart
@@ -28,12 +28,12 @@
         ></chart>
       </div>
       <div v-if="showOriginalSignal" class="flex col-span-1 justify-center items-center">
-        <div
+        <a
           @click="process"
           class="btn m-4 inline-block rounded-full px-4 py-2 border border-secondary bg-white text-secondary hover:shadow-inner transform hover:scale-110 hover:bg-primary-200 hover:border-primary-100 hover:cursor-pointer transition ease-out duration-300"
         >
           Procesar
-        </div>
+        </a>
       </div>
       <div v-if="showPreprocessedSignal" class="col-span-3">
         <chart
