@@ -18,6 +18,12 @@
           <h3 class="text-secondary text-2xl ml-12 my-12">
             Luis Cárcamo, Alfonso Mancilla, Fabián Osorio y Johnny Villegas
           </h3>
+          <a
+            @click="$router.push('/model')"
+            class="btn m-4 inline-block rounded-full px-4 py-2 border bg-primary-100 shadow-lg border-primary-100 text-secondary hover:shadow-inner transform hover:scale-110 hover:border-secondary hover:bg-white hover:shadow-none transition ease-out duration-300"
+          >
+            Go to results &#8594;
+          </a>
         </div>
       </div>
       <div class="bg-tertiary col-span-1 grid md:grid-cols-2">
@@ -57,9 +63,9 @@
       <div class="bg-white col-span-1 grid md:grid-cols-2">
         <div class="col-span-1 text-center m-4 md:m-12">
           <img
-            src="@/assets/images/ecg-nnet.svg"
-            class="h-screen object-contain m-auto"
-            alt="Layers"
+            src="@/assets/images/table1.png"
+            class="h-64 object-contain"
+            alt="Electrocardiograma de ejemplo"
           />
         </div>
         <div class="col-span-1 text-left m-12">
@@ -87,32 +93,53 @@
             The correspondence between the AAMI classes and theMIT-BIH classes
             is shown in Table 2.
           </p>
-          <img
+          <!-- <img
             src="@/assets/images/table1.png"
             class="h-64 object-contain"
             alt="Electrocardiograma de ejemplo"
-          />
+          /> -->
         </div>
       </div>
       <div class="bg-tertiary col-span-1 grid md:grid-cols-2">
         <div class="col-span-1 text-left m-12">
           <h2 class="text-secondary text-2xl font-medium">Preprocessing</h2>
           <p class="text-secondary text-base font-normal mt-4">
-            In the figure class-S is a sample of class
-            after the noise reduction process are shown.
+            In the figure class-S is a sample of class after the noise reduction
+            process are shown.
           </p>
         </div>
         <div class="col-span-1 text-center m-4 md:m-12">
           <img
-            src="@/assets/images/clase-S.jpg"
-            class="object-contain h-72 w-full"
+            src="@/assets/images/clase-S.png"
+            class="object-contain h-52"
             alt="Electrocardiograma de ejemplo"
           />
         </div>
         <div class="col-span-1 text-center m-4 md:m-12">
           <img
-            src="@/assets/images/correlation.jpg"
-            class="object-contain h-72 w-full"
+            src="@/assets/images/clase-F.png"
+            class="object-contain h-52"
+            alt="Electrocardiograma de ejemplo"
+          />
+        </div>
+        <div class="col-span-1 text-center m-4 md:m-12">
+          <img
+            src="@/assets/images/clase-N.png"
+            class="object-contain h-52"
+            alt="Electrocardiograma de ejemplo"
+          />
+        </div>
+        <div class="col-span-1 text-center m-4 md:m-12">
+          <img
+            src="@/assets/images/clase-V.png"
+            class="object-contain h-52"
+            alt="Electrocardiograma de ejemplo"
+          />
+        </div>
+        <div class="col-span-1 text-center m-4 md:m-12">
+          <img
+            src="@/assets/images/correlation.png"
+            class="object-contain h-52"
             alt="Electrocardiograma de ejemplo"
           />
         </div>
@@ -122,8 +149,8 @@
         </div>
         <div class="col-span-1 text-center m-4 md:m-12">
           <img
-            src="@/assets/images/confusion.jpg"
-            class="object-contain h-72 w-full"
+            src="@/assets/images/confusion.png"
+            class="object-contain h-52"
             alt="Electrocardiograma de ejemplo"
           />
         </div>
