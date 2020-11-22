@@ -30,6 +30,7 @@ export default {
       datasets: [],
     },
     options: {
+      maintainAspectRatio:false,
       responsive: true,
       title: {
         display: true,

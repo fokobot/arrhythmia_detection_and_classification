@@ -19,15 +19,19 @@
           Obtener señal
         </a>
       </div>
-      <div v-if="showOriginalSignal" class="col-span-2">
-        <chart
-          title="Señal Original"
-          :signal="signals.original"
-          :showSegments="false"
-          labels
-        ></chart>
+      <div v-if="showOriginalSignal" class="col-span-2 overflow-x-auto">
+        <div class="chartWrapper">
+          <chart
+            title="Señal Original"
+            :signal="signals.original"
+            :showSegments="false"
+          ></chart>
+        </div>
       </div>
-      <div v-if="showOriginalSignal" class="flex col-span-1 justify-center items-center">
+      <div
+        v-if="showOriginalSignal"
+        class="flex col-span-1 justify-center items-center"
+      >
         <a
           @click="process"
           class="btn m-4 inline-block rounded-full px-4 py-2 border border-secondary bg-white text-secondary hover:shadow-inner transform hover:scale-110 hover:bg-primary-200 hover:border-primary-100 hover:cursor-pointer transition ease-out duration-300"
@@ -35,14 +39,15 @@
           Procesar
         </a>
       </div>
-      <div v-if="showPreprocessedSignal" class="col-span-3">
-        <chart
-          title="Señal Procesada"
-          :signal="signals.preprocessed"
-          :segments="prediction"
-          :showSegments="true"
-          class="w-4/4"
-        ></chart>
+      <div v-if="showPreprocessedSignal" class="col-span-3 overflow-x-auto">
+        <div class="chartWrapper">
+          <chart
+            title="Señal Procesada"
+            :signal="signals.preprocessed"
+            :segments="prediction"
+            :showSegments="true"
+          ></chart>
+        </div>
       </div>
     </div>
   </div>
@@ -106,7 +111,7 @@ export default {
         .then(res => {
           vm.showOriginalSignal = true
           vm.signals.original = res.data.signal
-          })
+        })
         .catch(err => console.log(err))
     },
     process() {
@@ -119,9 +124,17 @@ export default {
           vm.showPreprocessedSignal = true
           vm.prediction = res.data.prediction
           vm.signals.preprocessed = res.data.preprocessed_signal
-          })
+        })
         .catch(err => console.log(err))
     },
   },
 };
 </script>
+
+<style>
+.chartWrapper {
+  overflow-x: auto;
+  height: 400px;
+  width: 10000px;
+}
+</style>
