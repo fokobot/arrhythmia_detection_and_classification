@@ -12,12 +12,38 @@
             {{ segment }}
           </option>
         </select>
-        <a
+        <div
           @click="getSignal"
-          class="btn m-4 inline-block rounded-full px-4 py-2 border border-secondary bg-white text-secondary hover:shadow-inner transform hover:scale-110 hover:bg-primary-200 hover:border-primary-100 hover:cursor-pointer transition ease-out duration-300"
+          class="btn m-4 inline-block cursor-pointer rounded-full px-4 py-2 border border-secondary bg-white text-secondary hover:shadow-inner transform hover:scale-110 hover:bg-primary-200 hover:border-primary-100 transition ease-out duration-300"
+          :disabled="gettingSignal"
         >
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 38 38"
+            xmlns="http://www.w3.org/2000/svg"
+            stroke="#26211F"
+            class="inline-block"
+            v-if="gettingSignal"
+          >
+            <g fill="none" fill-rule="evenodd">
+              <g transform="translate(1 1)" stroke-width="2">
+                <circle stroke-opacity=".5" cx="18" cy="18" r="18" />
+                <path d="M36 18c0-9.94-8.06-18-18-18">
+                  <animateTransform
+                    attributeName="transform"
+                    type="rotate"
+                    from="0 18 18"
+                    to="360 18 18"
+                    dur="1s"
+                    repeatCount="indefinite"
+                  />
+                </path>
+              </g>
+            </g>
+          </svg>
           Obtener señal
-        </a>
+        </div>
       </div>
       <div v-if="showOriginalSignal" class="col-span-2 overflow-x-auto">
         <div class="chartWrapper">
@@ -32,12 +58,38 @@
         v-if="showOriginalSignal"
         class="flex col-span-1 justify-center items-center"
       >
-        <a
+        <div
           @click="process"
-          class="btn m-4 inline-block rounded-full px-4 py-2 border border-secondary bg-white text-secondary hover:shadow-inner transform hover:scale-110 hover:bg-primary-200 hover:border-primary-100 hover:cursor-pointer transition ease-out duration-300"
+          class="btn m-4 inline-block cursor-pointer rounded-full px-4 py-2 border border-secondary bg-white text-secondary hover:shadow-inner transform hover:scale-110 hover:bg-primary-200 hover:border-primary-100 transition ease-out duration-300"
+          :disabled="processing"
         >
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 38 38"
+            xmlns="http://www.w3.org/2000/svg"
+            stroke="#26211F"
+            class="inline-block"
+            v-if="processing"
+          >
+            <g fill="none" fill-rule="evenodd">
+              <g transform="translate(1 1)" stroke-width="2">
+                <circle stroke-opacity=".5" cx="18" cy="18" r="18" />
+                <path d="M36 18c0-9.94-8.06-18-18-18">
+                  <animateTransform
+                    attributeName="transform"
+                    type="rotate"
+                    from="0 18 18"
+                    to="360 18 18"
+                    dur="1s"
+                    repeatCount="indefinite"
+                  />
+                </path>
+              </g>
+            </g>
+          </svg>
           Procesar
-        </a>
+        </div>
       </div>
       <div v-if="showPreprocessedSignal" class="col-span-3 overflow-x-auto">
         <div class="chartWrapper">
@@ -64,6 +116,8 @@ export default {
   },
   data: function () {
     return {
+      gettingSignal: false,
+      processing: false,
       showOriginalSignal: false,
       showPreprocessedSignal: false,
       classManager: "hidden",
@@ -88,7 +142,7 @@ export default {
     };
   },
   created() {
-    const vm = this
+    const vm = this;
     vm.segments = Array.from({ length: 40 }, (_, i) => i + 1);
     axios.get('http://api.ecgmodel.com/records')
       .then(res => vm.records = res.data.records)
@@ -103,29 +157,40 @@ export default {
       }
     },
     getSignal() {
-      const vm = this
+      const vm = this;
+      vm.gettingSignal = true;
+      vm.showPreprocessedSignal = false;
       axios.post('http://api.ecgmodel.com/getSignal', {
         "record": parseInt(vm.recordSelected),
         "no_segment": parseInt(vm.segmentSelected),
       })
         .then(res => {
-          vm.showOriginalSignal = true
-          vm.signals.original = res.data.signal
+          vm.showOriginalSignal = true;
+          vm.gettingSignal = false;
+          vm.signals.original = res.data.signal;
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+          console.log(err);
+          vm.gettingSignal = false;
+        });
     },
     process() {
-      const vm = this
+      const vm = this;
+      vm.processing = true;
       axios.post('http://api.ecgmodel.com/predict', {
         "record": parseInt(vm.recordSelected),
         "no_segment": parseInt(vm.segmentSelected),
       })
         .then(res => {
-          vm.showPreprocessedSignal = true
-          vm.prediction = res.data.prediction
-          vm.signals.preprocessed = res.data.preprocessed_signal
+          vm.showPreprocessedSignal = true;
+          vm.processing = false;
+          vm.prediction = res.data.prediction;
+          vm.signals.preprocessed = res.data.preprocessed_signal;
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+          console.log(err);
+          vm.processing = false;
+          });
     },
   },
 };

@@ -18,12 +18,12 @@
           <h3 class="text-secondary text-2xl ml-12 my-12">
             Luis Cárcamo, Alfonso Mancilla, Fabián Osorio y Johnny Villegas
           </h3>
-          <a
+          <div
             @click="$router.push('/model')"
-            class="btn m-4 inline-block rounded-full px-4 py-2 border bg-primary-100 shadow-lg border-primary-100 text-secondary hover:shadow-inner transform hover:scale-110 hover:border-secondary hover:bg-white hover:shadow-none transition ease-out duration-300"
+            class="btn m-4 inline-block cursor-pointer rounded-full px-4 py-2 border bg-primary-100 shadow-lg border-primary-100 text-secondary transform hover:scale-110 hover:border-secondary hover:bg-white hover:shadow-none transition ease-out duration-300"
           >
             Go to results &#8594;
-          </a>
+          </div>
         </div>
       </div>
       <div class="bg-tertiary col-span-1 grid md:grid-cols-2">
