@@ -33,7 +33,7 @@ export default {
       maintainAspectRatio:false,
       responsive: true,
       title: {
-        display: true,
+        display: false,
         text: "",
       },
       tooltips: {

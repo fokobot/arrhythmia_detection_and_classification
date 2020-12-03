@@ -54,7 +54,7 @@
                 </svg>
               </a>
             </li>
-            <li class="py-1">
+            <li class="py-1" v-if="false">
               <a
                 @click="$router.push('/about')"
                 :class="$route.name === 'About' ? sidebarSelected : sidebarNoSelected"
@@ -76,7 +76,7 @@
                 </svg>
               </a>
             </li>
-            <li class="py-1">
+            <li class="py-1" v-if="false">
               <a
                 @click="$router.push('/contact')"
                 :class="$route.name === 'Contact' ? sidebarSelected : sidebarNoSelected"

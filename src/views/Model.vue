@@ -2,12 +2,12 @@
   <div class="model">
     <div class="grid md:grid-cols-3">
       <div class="col-span-3">
-        <select v-model="recordSelected" class="inline-block">
-          <option disabled value="">Seleccione un record</option>
+        <select v-model="recordSelected" class="inline-block mx-2">
+          <option disabled value="">Select a record</option>
           <option v-for="record in records" :key="record">{{ record }}</option>
         </select>
-        <select v-model="segmentSelected" class="inline-block">
-          <option disabled value="">Seleccione un segmento</option>
+        <select v-model="segmentSelected" class="inline-block mx-2">
+          <option disabled value="">Select a section</option>
           <option v-for="segment in segments" :key="segment">
             {{ segment }}
           </option>
@@ -42,7 +42,7 @@
               </g>
             </g>
           </svg>
-          Obtener señal
+          Get Signal
         </div>
       </div>
       <div v-if="showOriginalSignal" class="col-span-2 overflow-x-auto">
@@ -88,18 +88,41 @@
               </g>
             </g>
           </svg>
-          Procesar
+          Process Signal
         </div>
       </div>
-      <div v-if="showPreprocessedSignal" class="col-span-3 overflow-x-auto">
-        <div class="chartWrapper">
-          <chart
-            title="Señal Procesada"
-            :signal="signals.preprocessed"
-            :segments="prediction"
-            :showSegments="true"
-          ></chart>
-        </div>
+    </div>
+    <div v-if="showPreprocessedSignal" class="block">
+      Colors:
+      <div class="block">
+        <div class="bg-graphic-amarillo w-5 h-5 inline-block"></div>
+        <p class="inline-block ml-2">Processed Signal</p>
+      </div>
+      <div class="block">
+        <div class="bg-graphic-azul w-5 h-5 inline-block"></div>
+        <p class="inline-block ml-2">Segment N</p>
+      </div>
+      <div class="block">
+        <div class="bg-graphic-rosa w-5 h-5 inline-block"></div>
+        <p class="inline-block ml-2">Segment F</p>
+      </div>
+      <div class="block">
+        <div class="bg-graphic-verde w-5 h-5 inline-block"></div>
+        <p class="inline-block ml-2">Segment V</p>
+      </div>
+      <div class="block">
+        <div class="bg-graphic-purpura w-5 h-5 inline-block"></div>
+        <p class="inline-block ml-2">Segment S</p>
+      </div>
+    </div>
+    <div v-if="showPreprocessedSignal" class="col-span-3 overflow-x-auto">
+      <div class="chartWrapper">
+        <chart
+          title="Señal Procesada"
+          :signal="signals.preprocessed"
+          :segments="prediction"
+          :showSegments="true"
+        ></chart>
       </div>
     </div>
   </div>
@@ -190,7 +213,7 @@ export default {
         .catch(err => {
           console.log(err);
           vm.processing = false;
-          });
+        });
     },
   },
 };
